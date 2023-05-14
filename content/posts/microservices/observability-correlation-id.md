@@ -3,7 +3,7 @@ title: 'Observability via a correlation id in HTTP requests between .NET microse
 date: 2023-05-14
 # weight: 1
 # aliases: ["/first"]
-tags: ['microservices', '.net', 'c#', 'correlation-id', 'observability']
+tags: ['microservices', '.net', 'correlation-id', 'observability']
 author: 'Jamie Sharpe'
 # author: ["Me", "You"] # multiple authors
 showToc: true
