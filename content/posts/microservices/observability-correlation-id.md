@@ -32,7 +32,7 @@ cover:
 
 ## Scenario
 
-One issue with microservices and communication between them via HTTP is tracking the users request once it leaves the application and goes off to another application to do something else. For example, lets say we have 2 applications:
+One issue with microservices and communication between them via HTTP is tracking user requests once they leave the origin application and go off to another application to perform something other task. For example, lets say we have 2 applications:
 
 1. Ice cream order app
 2. Ice cream stock management system
@@ -43,7 +43,9 @@ What happens if an error occurs in the stock management system, how do we trace 
 
 ## Enter the correlation id
 
-Using middleware we can attach a correlation id to HTTP requests as they come into the application. When used, the simple extension class below will attach a GUID correlation id to the headers of HTTP requests if one does not already exist.
+Using middleware we can attach a correlation id to HTTP requests as they come into the application.
+
+When used, the simple extension class below will attach a GUID correlation id to the headers of HTTP requests if one does not already exist under the key `X-Correlation-Id`.
 
 ```C#
 public static class ObservabilityExtensions
@@ -65,7 +67,7 @@ public static class ObservabilityExtensions
 }
 ```
 
-We can then call `UseCorrelationId()` in our startup/program class.
+We can then call `UseCorrelationId()` in our startup/program class to use it.
 
 ```C#
  app.UseCorrelationId();
@@ -103,11 +105,11 @@ Once done, the correlation id will be propagated from our Ice cream order app to
 
 ![Ice Cream Correlation Id Map Diagram](/ice_cream_correlation_id.png)
 
-This means it can be logged as either a property or as part of the message, allowing you to track requests across application boundaries.
+This means it can be logged as either a property or as part of the message itself, allowing you to track requests across application boundaries.
 
 ## Bonus
 
-If you want an easy way to access the correlation id then you can update `ObservabilityExtensions` class to add a method to get the correlation id from the request headers.
+If you want an easy way to access the correlation id then you can update the `ObservabilityExtensions` class shown earlier to add a method to get the correlation id from the request headers.
 
 ```C#
 public static class ObservabilityExtensions
