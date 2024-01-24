@@ -42,15 +42,15 @@ The simple answer would be to to change the code to read from a location on the 
 
 ## The solution - Registry(DOS Devices)
 
-It is possible to permanently map a drive using the DOS Devices mechanism via the registry. By "permanently" I mean that the mapped drive is persisted across reboots and is available for immediate usage during system startup.
+It is possible to permanently map a drive using the DOS Devices mechanism via the registry. By "permanently" I mean that the mapped drive is persisted across restarts and is available for immediate usage during system startup.
 
-In PowerShell this is done with the following command:
+In PowerShell this can be done with the following command:
 
 ```PowerShell
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session` Manager\DOS` Devices" -Name "D:" -Value "\??\C:\MyDriveData";
 ```
 
-Now all we need to do is modify our DockerFile to execute the above command, for example if I was building creating a Docker image to run a .NET Framework 4.8 project my Dockerfile could look something like this:
+Now all we need to do is modify our DockerFile to execute the above command, for example if I was building creating a Docker image to run a .NET Framework 4.8 project my Dockerfile could look something like below where we create two drive letters D: and E: by using the command above.
 
 ```
 FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
